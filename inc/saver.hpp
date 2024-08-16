@@ -8,11 +8,12 @@ class Pattern;
 class Saver
 {
     private:
-        Button      searcher;
-        Button      save;
-        Text_area   name_area;
-        int         name_area_click;
+        Button                  searcher;
+        Button                  save;
+        std::vector<Text_area>  text_area;
         Pattern     *pattern;
+        
+        int area_click;
     public:
         //Saver() {};
         Saver(Pattern *p_pattern);
@@ -20,6 +21,9 @@ class Saver
 
         void    CLICK(Vector2 mouse_pos);
         void    DISPLAY();
+        int     TEXT_Inp_Open();
+        void    TEXT_Inp();
+        void    save_pattern();
 };
 
 #endif

@@ -3,7 +3,6 @@
 int main()
 {
     Pattern pattern;
-
     while (!WindowShouldClose())
     {
         pattern.DISPLAY();

@@ -1,4 +1,4 @@
-NAME        = Pattern_saver
+NAME        = pattern_saver
 
 INC_DIR     = inc/
 SRC_DIR     = src/
@@ -9,7 +9,7 @@ OBJ_DIR     = obj/
 RAYLIB_LIB  = inc/raylib/src/libraylib.a
 
 CC          = c++
-CFLAGS      = -g -Wall -Wextra -Werror -std=c++11 -I$(INC_DIR)  # Fix the include path here
+CFLAGS      = -g -Wall -Wextra -Werror -std=c++17 -I$(INC_DIR)  # Fix the include path here
 
 RM          = rm -f
 

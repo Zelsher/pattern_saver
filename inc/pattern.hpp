@@ -6,10 +6,11 @@
 # include <string>
 # include <sstream>
 # include <iomanip>
+#include <filesystem>
 # include <cmath>
 # include <fstream>
 
-# include "raylib/src/raylib.h"
+# include "raylib.h"
 # include "pattern.hpp"
 # include "button.hpp"
 # include "text_area.hpp"
@@ -21,6 +22,12 @@
 
 #define SAVER 1
 #define SEARCHER 2
+
+#define BASE_WIDTH 1000
+#define BASE_HEIGHT 300
+
+#define SAVE_FOLDER "saved_pattern/"
+#define WAV_FOLDER "wav_folder/"
 
 class Pattern 
 {
@@ -40,7 +47,9 @@ class Pattern
         void    DISPLAY_Saver();
         void    DISPLAY_Searcher();
 
-        void    CHANGE_Mod(int n_mod) { mod = n_mod; }
+        void    CHANGE_Mod(int n_mod) { mod = n_mod; }//penser a fermer toutes les zones de texte
+        int     WIDTH() { return width; }
+        int     HEIGHT() { return height;}
 };
 
 #endif

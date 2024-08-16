@@ -23,12 +23,12 @@ class Button
         void    DISPLAY_Button();
 
 
-        Vector2 POS() { return (pos); }
-        int     WIDTH() { return (width); }
-        int     HEIGHT() { return (height); }
-        Color   COLOR() { return (color); }
+        Vector2     POS() { return (pos); }
+        int         WIDTH() { return (width); }
+        int         HEIGHT() { return (height); }
+        Color       COLOR() { return (color); }
         std::string NAME() {return (name); }
-        int     NAME_Width() { return (name_width); }
+        int         NAME_Width() { return (name_width); }
 };
 
 #endif
