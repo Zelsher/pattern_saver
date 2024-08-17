@@ -9,6 +9,7 @@
 #include <filesystem>
 # include <cmath>
 # include <fstream>
+#include <sstream>
 
 # include "raylib.h"
 # include "pattern.hpp"

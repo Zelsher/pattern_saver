@@ -14,7 +14,9 @@ class Text_area
         int         max_char_per_line;
         int         width;
         int         height;
+        int         char_size;
         Color       color;
+        int         scroll;
 
     public:
         //Text_area(){}
@@ -36,8 +38,9 @@ class Text_area
         int         NAME_Width() { return (name_width); }
 
         void        Print_width() { std::cout << width << std::endl << height << std::endl; }
-        std::string GET_Text() { return (text); }
+        std::string GET_Text() { std::cout << text << std::endl; return (text); }
         void        CREATE_Displayed_Text();
+        void        SCROLL(int i) { scroll += -i; if (scroll < 0)scroll++; }
 };
 
 #endif

@@ -19,7 +19,7 @@ void   Saver::save_pattern()
     //std::filesystem
     if (text_area.empty()) 
         return;
-    text_area[0].RESET();
+    std::cout << text_area[0].GET_Text() << std::endl;
     std::string pattern_name = text_area[0].GET_Text();
     std::string wave_file = pattern_name + ".wav";
     text_area[0].RESET();
@@ -50,6 +50,8 @@ void   Saver::save_pattern()
         std::cerr << "Erreur: Impossible de créer le fichier name" << std::endl;
         return ;
     }
+    name << text_area[1].GET_Text();
+    text_area[1].RESET();
     //takeScreenshot(pattern_name);
 }
 
