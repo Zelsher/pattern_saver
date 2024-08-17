@@ -31,6 +31,7 @@ void	Pattern::DISPLAY()
 {
 	std::cout << ">>" << std::endl << pos.x << std::endl << pos.y << std::endl << width << std::endl << height << std::endl << "<<" << std::endl;
 	DrawRectangle(pos.x, pos.y, width, height, RED);
+	DrawRectangle(pos.x, pos.y, width, 1, BLACK);
 	play.DISPLAY_Button();
 	DrawText(name.c_str(), pos.x + width / 2 - char_size / 2, pos.y + height / 2 - char_size / 2, char_size, BLACK);
 }
