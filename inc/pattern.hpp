@@ -1,56 +1,30 @@
 #ifndef PATTERN_HPP
 # define PATTERN_HPP
 
-# include <iostream>
-# include <vector>
-# include <string>
-# include <sstream>
-# include <iomanip>
-#include <filesystem>
-# include <cmath>
-# include <fstream>
-#include <sstream>
+#include "pattern_saver.hpp"
 
-# include "raylib.h"
-# include "pattern.hpp"
-# include "button.hpp"
-# include "text_area.hpp"
-# include "saver.hpp"
-# include "searcher.hpp"
-
-#define WAV_PATH "test"
-#define SAVE_PATH "test"
-
-#define SAVER 1
-#define SEARCHER 2
-
-#define BASE_WIDTH 1000
-#define BASE_HEIGHT 300
-
-#define SAVE_FOLDER "saved_pattern/"
-#define WAV_FOLDER "wav_folder/"
+class Button;
 
 class Pattern 
 {
     private:
-        int         mod;
-        Saver       saver;
-        Searcher    searcher;
-        int         width;
-        int         height;
-        Vector2     mouse_pos;
+        Vector2 pos;
+        std::string name;
+        std::string path;
+        std::string wav_file;
+        std::string description_file;
+        int     width;
+        int     height;
+        int     char_size;
+        Button  play;
+        Color   color;
     public:
-        Pattern();
+        Pattern(Vector2 pos, std::string n_name, std::string n_path, int n_width, int n_height);
         ~Pattern();
 
+        void    CLICK(Vector2 pos);
         void    DISPLAY();
-        void    HANDLE_Input();
-        void    DISPLAY_Saver();
-        void    DISPLAY_Searcher();
-
-        void    CHANGE_Mod(int n_mod) { mod = n_mod; }//penser a fermer toutes les zones de texte
-        int     WIDTH() { return width; }
-        int     HEIGHT() { return height;}
+        void    PLAY_Wav();
 };
 
 #endif

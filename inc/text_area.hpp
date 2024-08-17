@@ -1,7 +1,7 @@
 #ifndef TEXT_AREA_HPP
 # define TEXT_AREA_HPP
 
-#include "pattern.hpp"
+#include "pattern_saver.hpp"
 
 class Text_area
 {

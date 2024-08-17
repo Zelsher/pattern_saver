@@ -1,49 +1,36 @@
-#include "../inc/pattern.hpp"
+#include "../inc/pattern_saver.hpp"
 
-Pattern::Pattern() : mod(1), saver(this), searcher(this), width(BASE_WIDTH), height(BASE_HEIGHT)
+Pattern::Pattern(Vector2 n_pos, std::string n_name, std::string n_path, int n_width, int n_height) : name(n_name), path(n_path), width(n_width), height(n_height), play(Vector2{pos.x + width / 15, pos.y + height / 4}, "Play", height / 2, height / 2, DARKBLUE)
 {
-	InitWindow(width, height, "pattern");
-	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	ClearBackground(BLACK);
+	pos = n_pos;
+	//std::cout << name << std::endl;
+	wav_file = path + "/" + name + ".wav";
+	color = YELLOW;
+	char_size = MeasureText("a", 26);
 }
 
 Pattern::~Pattern()
 {
-	std::cout << "destructor called" << std::endl;
-	CloseWindow();
+	
 }
 
-void	Pattern::HANDLE_Input()
+void	Pattern::PLAY_Wav()
 {
-	if (IsMouseButtonPressed(0))
-	{
-		mouse_pos = GetMousePosition();
-		if (mod == SAVER)
-			saver.CLICK(mouse_pos);
-		else
-			searcher.CLICK(mouse_pos);
-	}
-	if (mod == SAVER && saver.TEXT_Inp_Open())
-		saver.TEXT_Inp();
-	else if (mod == SEARCHER && searcher.TEXT_Inp_Open())
-		searcher.TEXT_Inp();
+	Sound play_wav = LoadSound(wav_file.c_str());
+	PlaySound(play_wav);
+	UnloadSound(play_wav);
 }
-void	Pattern::DISPLAY_Saver()
-{}
 
-void	Pattern::DISPLAY_Searcher()
-{}
-
+void	Pattern::CLICK(Vector2 pos)
+{
+	if (play.IS_Clicked(pos))
+		PLAY_Wav();
+}
 
 void	Pattern::DISPLAY()
 {
-	HANDLE_Input();
-
-	BeginDrawing();
-	ClearBackground(Color{31, 31, 31, 255});
-	if(mod == SAVER)
-		saver.DISPLAY();
-	else if (mod == SEARCHER)
-		searcher.DISPLAY();
-	EndDrawing();
+	std::cout << ">>" << std::endl << pos.x << std::endl << pos.y << std::endl << width << std::endl << height << std::endl << "<<" << std::endl;
+	DrawRectangle(pos.x, pos.y, width, height, RED);
+	play.DISPLAY_Button();
+	DrawText(name.c_str(), pos.x + width / 2 - char_size / 2, pos.y + height / 2 - char_size / 2, char_size, BLACK);
 }

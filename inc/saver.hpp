@@ -1,9 +1,9 @@
 #ifndef SAVER_HPP
 # define SAVER_HPP
 
-#include "pattern.hpp"
+#include "pattern_saver.hpp"
 
-class Pattern;
+class Pattern_saver;
 
 class Saver
 {
@@ -11,12 +11,12 @@ class Saver
         Button                  searcher;
         Button                  save;
         std::vector<Text_area>  text_area;
-        Pattern     *pattern;
+        Pattern_saver     *pattern;
         
         int area_click;
     public:
         //Saver() {};
-        Saver(Pattern *p_pattern);
+        Saver(Pattern_saver *p_pattern);
         ~Saver();
 
         void    CLICK(Vector2 mouse_pos);

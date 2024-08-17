@@ -17,6 +17,7 @@ SRC         = $(SRC_DIR)main.cpp \
 			  $(SRC_DIR)text_area.cpp \
               $(SRC_DIR)button.cpp \
               $(SRC_DIR)pattern.cpp \
+			  $(SRC_DIR)pattern_saver.cpp \
               $(SRC_DIR)saver.cpp \
               $(SRC_DIR)searcher.cpp \
 

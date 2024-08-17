@@ -1,7 +1,7 @@
 #ifndef BUTTON_HPP
 # define BUTTON_HPP
 
-#include "pattern.hpp"
+#include "pattern_saver.hpp"
 
 class Button 
 {

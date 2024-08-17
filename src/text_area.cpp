@@ -1,4 +1,4 @@
-#include "../inc/pattern.hpp"
+#include "../inc/pattern_saver.hpp"
 
 Text_area::Text_area(Vector2 n_pos, std::string n_name, int n_width, int n_height, int n_font, Color n_color) 
 {
@@ -18,7 +18,7 @@ Text_area::Text_area(Vector2 n_pos, std::string n_name, int n_width, int n_heigh
 
 Text_area::~Text_area()
 {
-    std::cout << "destructor text_area called" << std::endl;
+    std::cout << "destructor text_area called on " << name << std::endl;
 }
 
 int    Text_area::IS_Clicked(Vector2 click_pos)
@@ -38,8 +38,6 @@ int     Text_area::CLICK_Outside_Text_Area()
         return (1);
     return (0);
 }
-
-
 
 void    Text_area::CREATE_Displayed_Text(int key)
 {

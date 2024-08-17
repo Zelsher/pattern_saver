@@ -1,6 +1,6 @@
-#include "../inc/pattern.hpp"
+#include "../inc/pattern_saver.hpp"
 
-Saver::Saver(Pattern *p_pattern) : searcher(Vector2{BASE_WIDTH / 2, BASE_HEIGHT - BASE_HEIGHT / 5}, "searcher", BASE_WIDTH / 2, BASE_HEIGHT / 5, Color{76, 76, 76, 255}),
+Saver::Saver(Pattern_saver *p_pattern) : searcher(Vector2{BASE_WIDTH / 2, BASE_HEIGHT - BASE_HEIGHT / 5}, "searcher", BASE_WIDTH / 2, BASE_HEIGHT / 5, Color{76, 76, 76, 255}),
                                     save(Vector2{0, BASE_HEIGHT - BASE_HEIGHT / 5}, "save", BASE_WIDTH / 2, BASE_HEIGHT / 5, Color{0, 141, 31, 255}),
                                     pattern(p_pattern),
                                     area_click(0)
