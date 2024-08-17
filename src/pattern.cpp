@@ -5,7 +5,7 @@ Pattern::Pattern(Vector2 n_pos, std::string n_name, std::string n_path, int n_wi
 	pos = n_pos;
 	//std::cout << name << std::endl;
 	wav_file = path + "/" + name + ".wav";
-	color = YELLOW;
+	color = Color{76, 76, 76, 255};
 	char_size = MeasureText("a", 26);
 }
 
@@ -29,8 +29,8 @@ void	Pattern::CLICK(Vector2 pos)
 
 void	Pattern::DISPLAY()
 {
-	std::cout << ">>" << std::endl << pos.x << std::endl << pos.y << std::endl << width << std::endl << height << std::endl << "<<" << std::endl;
-	DrawRectangle(pos.x, pos.y, width, height, RED);
+	//std::cout << ">>" << std::endl << pos.x << std::endl << pos.y << std::endl << width << std::endl << height << std::endl << "<<" << std::endl;
+	DrawRectangle(pos.x, pos.y, width, height, color);
 	DrawRectangle(pos.x, pos.y, width, 1, BLACK);
 	play.DISPLAY_Button();
 	DrawText(name.c_str(), pos.x + width / 2 - char_size / 2, pos.y + height / 2 - char_size / 2, char_size, BLACK);

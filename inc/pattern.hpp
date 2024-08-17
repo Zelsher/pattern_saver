@@ -21,7 +21,6 @@ class Pattern
     public:
         Pattern(Vector2 pos, std::string n_name, std::string n_path, int n_width, int n_height);
         ~Pattern();
-
         void    CLICK(Vector2 pos);
         void    DISPLAY();
         void    PLAY_Wav();

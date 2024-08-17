@@ -43,6 +43,9 @@ namespace fs = std::filesystem;
 
 void Searcher::UPDATE_Searcher() 
 {
+    scroll -= GetMouseWheelMove();
+    if (scroll < 0)
+        scroll = 0;
     if (!pattern.empty())
         pattern.clear();
     if (!fs::exists(SAVE_FOLDER)) 
