@@ -1,9 +1,19 @@
 #include "../inc/pattern.hpp"
 
-Text_area::Text_area(Vector2 n_pos, std::string n_name, int n_width, int n_height, Color n_color) : pos(n_pos), name(n_name), width(n_width), height(n_height), color(n_color), scroll(0)
+Text_area::Text_area(Vector2 n_pos, std::string n_name, int n_width, int n_height, int n_font, Color n_color) 
 {
-    std::cout << scroll << std::endl;
+    pos = n_pos;
+    name = n_name;
+    width = n_width;
+    height = n_height;
+    color = n_color;
+    n_line_displayed = 0;
+    scroll = 0;
 	name_width = MeasureText(name.c_str(), width);
+    n_char = 1;
+    font = n_font;
+    if (font == 0)
+        font = 26;
 }
 
 Text_area::~Text_area()
@@ -29,48 +39,73 @@ int     Text_area::CLICK_Outside_Text_Area()
     return (0);
 }
 
-void    Text_area::CREATE_Displayed_Text()
+
+
+void    Text_area::CREATE_Displayed_Text(int key)
 {
-    displayed_text.clear();
-    max_char_per_line = width / char_size - 2;
-    int n_line(1);
-    for (size_t i = 0; i < text.length(); i++, n_line++)
+    max_char_per_line = width / char_size - 4;
+    max_line_displayed = height / (char_size * 1.5) - 1;
+    if (key == KEY_BACKSPACE)//retirer un charactere
     {
-        displayed_text += text[i];
-        if (n_line == max_char_per_line)
+        if (!displayed_text.empty() && displayed_text.back() == '\n')
         {
-            displayed_text += '\n';
-            n_line = 0;
+            n_line_displayed--;
+            scroll--;
+            n_char = max_char_per_line - 1;
         }
+        if (!displayed_text.empty())
+            displayed_text.pop_back();
+        return;
+    }
+    if (!text.empty())//ajouter un charactere
+    {
+        displayed_text += text.back();
+        n_char++;
+        if (key == KEY_ENTER)
+        {
+            std::cout << key << std::endl;
+            if (max_line_displayed <= n_line_displayed)
+                scroll++;
+            n_line_displayed++;
+            n_char = 1;
+        }
+            
+    }
+    if (n_char == max_char_per_line)//adapter laffichage
+    {
+        n_char = 1;
+        displayed_text += '\n';
+        n_line_displayed++;
+        if (max_line_displayed <= n_line_displayed)
+            scroll++;
     }
 }
 
 int    Text_area::Input_text()
 {
     //MeasureText("a", (width * height) * 0.001f) > height
-    SCROLL(GetMouseWheelMove());
+    SCROLL((int)GetMouseWheelMove());
     int key = GetKeyPressed();
-    if ((key < 48 || key > 122) && (key != KEY_BACKSPACE && key != KEY_ENTER))
+    if ((key < 32 || key > 122) && (key != KEY_BACKSPACE && key != KEY_ENTER))
         return(0);
     if (key == KEY_BACKSPACE && !text.empty())
         text.pop_back();
     else if (key == KEY_ENTER)
-        return (1);
+        text += "\n";
     else if (key != KEY_BACKSPACE)
     {
-        if (IsKeyDown(KEY_LEFT_SHIFT)) 
+        if (!(key >= 65 && key <= 90) || IsKeyDown(KEY_LEFT_SHIFT)) 
             text += (char)key;
         else
             text += (char)(key + 32);
     }
-    CREATE_Displayed_Text();
-    std::cout << text << std::endl;
+    CREATE_Displayed_Text(key);
     return (0);
 }
 
 void    Text_area::DISPLAY_Area()
 {
-    char_size = MeasureText("a", (width * height) * 0.001f);
+    char_size = MeasureText("a", font);
     DrawRectangle(pos.x, pos.y, width, height, WHITE);
     if (text.empty())
             DrawText(name.c_str(), pos.x + width / 2 - MeasureText(name.c_str(), (width * height) * 0.001f) / 2,
@@ -80,11 +115,11 @@ void    Text_area::DISPLAY_Area()
         std::istringstream flux(displayed_text);
         std::string line;
         int max_line_displayed = height / (char_size * 1.5) - 1;
-        for (int i = 0; scroll > i; i++)// passer leslignes scroller
+        for (int i = 0; scroll > i; i++)// passer les lignes scroller
             std::getline(flux, line);
         for (int i = 0; std::getline(flux, line) && max_line_displayed > i; i++) 
         {
-            DrawText(line.c_str(), pos.x, pos.y + (char_size * 1.5)* i, (width * height) * 0.001f, BLACK);
+            DrawText(line.c_str(), pos.x, pos.y + (char_size * 1.5) * i, font, BLACK);
         }
     }
 }

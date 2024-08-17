@@ -5,8 +5,8 @@ Saver::Saver(Pattern *p_pattern) : searcher(Vector2{BASE_WIDTH / 2, BASE_HEIGHT 
                                     pattern(p_pattern),
                                     area_click(0)
 {
-    text_area.emplace_back(Vector2{BASE_WIDTH / 2 + BASE_WIDTH / 20, BASE_HEIGHT / 10}, "Name", BASE_WIDTH / 2 - BASE_WIDTH / 18, BASE_HEIGHT / 5, WHITE);
-    text_area.emplace_back(Vector2{0 + BASE_WIDTH / 20, BASE_HEIGHT / 20}, "Description", BASE_WIDTH / 2 - BASE_WIDTH / 18, BASE_HEIGHT / 2, WHITE);     
+    text_area.emplace_back(Vector2{BASE_WIDTH / 2 + BASE_WIDTH / 40, BASE_HEIGHT / 15}, "Name", BASE_WIDTH / 2 - BASE_WIDTH / 18, BASE_HEIGHT / 5, 0, WHITE);
+    text_area.emplace_back(Vector2{0 + BASE_WIDTH / 40, BASE_HEIGHT / 15}, "Description", BASE_WIDTH / 2 - BASE_WIDTH / 18, BASE_HEIGHT / 2, 0, WHITE);     
 }
 
 Saver::~Saver()
@@ -16,17 +16,24 @@ Saver::~Saver()
 
 void   Saver::save_pattern()
 {
-    //std::filesystem
-    if (text_area.empty()) 
+    //erreur
+    if (text_area[0].GET_Text().empty()) 
         return;
-    std::cout << text_area[0].GET_Text() << std::endl;
+    
     std::string pattern_name = text_area[0].GET_Text();
     std::string wave_file = pattern_name + ".wav";
+    std::string folder = SAVE_FOLDER + pattern_name + '/';
+    std::string description = text_area[1].GET_Text();
     text_area[0].RESET();
+    text_area[1].RESET();
+
     if (!std::filesystem::exists(SAVE_FOLDER))
         std::filesystem::create_directory(SAVE_FOLDER);
 
-    std::cout << WAV_FOLDER + wave_file << std::endl;
+    if (std::filesystem::exists(folder))
+        return;
+    std::filesystem::create_directory(folder);
+    
     std::ifstream source(WAV_FOLDER + wave_file, std::ios::binary);
     if (!source)
     {
@@ -34,24 +41,24 @@ void   Saver::save_pattern()
         return;
     }
 
-    std::ofstream dest(SAVE_FOLDER + wave_file, std::ios::binary);
+    std::ofstream dest(folder + wave_file, std::ios::binary);
     if (!dest) 
     {
         std::cerr << "Erreur: Impossible de créer le fichier de destination." << std::endl;
         return;
     }
+
     dest << source.rdbuf();
     source.close();
     dest.close();
 
-    std::ofstream name(SAVE_FOLDER + pattern_name);
+    std::ofstream name(folder + pattern_name);
     if (!name) 
     {
         std::cerr << "Erreur: Impossible de créer le fichier name" << std::endl;
         return ;
     }
-    name << text_area[1].GET_Text();
-    text_area[1].RESET();
+    name << description;
     //takeScreenshot(pattern_name);
 }
 
