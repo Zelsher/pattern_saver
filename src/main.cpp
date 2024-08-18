@@ -2,9 +2,9 @@
 
 int main()
 {
-    Pattern_saver pattern;
-    while (!WindowShouldClose())
-    {
-        pattern.DISPLAY();
-    }
+	Pattern_saver pattern;
+	while (!WindowShouldClose())
+	{
+		pattern.DISPLAY();
+	}
 }

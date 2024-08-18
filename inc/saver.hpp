@@ -7,23 +7,25 @@ class Pattern_saver;
 
 class Saver
 {
-    private:
-        Button                  searcher;
-        Button                  save;
-        std::vector<Text_area>  text_area;
-        Pattern_saver     *pattern;
-        
-        int area_click;
-    public:
-        //Saver() {};
-        Saver(Pattern_saver *p_pattern);
-        ~Saver();
+	private:
+		Button                  searcher;
+		Button                  save;
+		std::vector<Text_area>  text_area;
+		Pattern_saver     *pattern;
+		
+		int area_click;
+	public:
+		//Saver() {};
+		Saver(Pattern_saver *p_pattern);
+		~Saver();
 
-        void    CLICK(Vector2 mouse_pos);
-        void    DISPLAY();
-        int     TEXT_Inp_Open();
-        void    TEXT_Inp();
-        void    save_pattern();
+		void    CLICK(Vector2 mouse_pos);
+		void    DISPLAY();
+		int     TEXT_Inp_Open();
+		void    TEXT_Inp();
+		void    SAVE_Pattern();
+
+		void    RESIZE(int n_width, int n_height);
 };
 
 #endif

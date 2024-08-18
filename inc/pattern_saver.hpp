@@ -6,12 +6,14 @@
 # include <string>
 # include <sstream>
 # include <iomanip>
-#include <filesystem>
+# include <filesystem>
 # include <cmath>
 # include <fstream>
-#include <sstream>
+# include <sstream>
 
 # include "raylib.h"
+# include "functions.hpp"
+# include "picture_preview.hpp"
 # include "button.hpp"
 # include "text_area.hpp"
 # include "pattern.hpp"
@@ -32,23 +34,24 @@
 
 class Pattern_saver 
 {
-    private:
-        int         mod;
-        Saver       saver;
-        Searcher    searcher;
-        int         width;
-        int         height;
-        Vector2     mouse_pos;
-    public:
-        Pattern_saver();
-        ~Pattern_saver();
+	private:
+		int         mod;
+		Saver       saver;
+		Searcher    searcher;
+		int         width;
+		int         height;
+		Vector2     mouse_pos;
+	public:
+		Pattern_saver();
+		~Pattern_saver();
 
-        void    DISPLAY();
-        void    HANDLE_Input();
-
-        void    CHANGE_Mod(int n_mod) { mod = n_mod; }//penser a fermer toutes les zones de texte
-        int     WIDTH() { return width; }
-        int     HEIGHT() { return height;}
+		void    DISPLAY();
+		void    HANDLE_Input();
+		void    RESIZE_Pattern_Saver();
+	
+		void    CHANGE_Mod(int n_mod) { mod = n_mod; }//penser a fermer toutes les zones de texte
+		int     WIDTH() { return width; }
+		int     HEIGHT() { return height;}
 };
 
 #endif

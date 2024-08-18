@@ -1,6 +1,6 @@
 #include "../inc/pattern_saver.hpp"
 
-Pattern::Pattern(Vector2 n_pos, std::string n_name, std::string n_path, int n_width, int n_height) : name(n_name), path(n_path), width(n_width), height(n_height), play(Vector2{pos.x + width / 15, pos.y + height / 4}, "Play", height / 2, height / 2, DARKBLUE)
+Pattern::Pattern(Vector2 n_pos, std::string n_name, std::string n_path, int n_width, int n_height) : name(n_name), path(n_path), width(n_width), height(n_height), play(Vector2{pos.x + width / 15, pos.y + height / 4}, "Play", height / 2, height / 2, DARKBLUE), img_preview(wav_file = path + "/" + name + ".png", Vector2{pos.x + width / 3, (float)height / 2}, width / 3, height)
 {
 	pos = n_pos;
 	//std::cout << name << std::endl;
@@ -31,7 +31,9 @@ void	Pattern::DISPLAY()
 {
 	//std::cout << ">>" << std::endl << pos.x << std::endl << pos.y << std::endl << width << std::endl << height << std::endl << "<<" << std::endl;
 	DrawRectangle(pos.x, pos.y, width, height, color);
-	DrawRectangle(pos.x, pos.y, width, 1, BLACK);
+	DRAW_Outline(pos, width, height);
+
 	play.DISPLAY_Button();
-	DrawText(name.c_str(), pos.x + width / 2 - char_size / 2, pos.y + height / 2 - char_size / 2, char_size, BLACK);
+	img_preview.DISPLAY();
+	DrawText(name.c_str(), pos.x + width / 2 - char_size / 2, pos.y + height / 2 - char_size / 2, char_size, WHITE);
 }

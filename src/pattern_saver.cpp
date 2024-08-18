@@ -14,20 +14,44 @@ Pattern_saver::~Pattern_saver()
 	CloseWindow();
 }
 
+void	Pattern_saver::RESIZE_Pattern_Saver()
+{
+	width = GetScreenWidth();
+	height = GetScreenHeight();
+	saver.RESIZE(width, height);
+	searcher.RESIZE(width, height);
+}
+
 void	Pattern_saver::HANDLE_Input()
 {
+	if (IsWindowResized())
+		RESIZE_Pattern_Saver();
+
+	int	click(0);
+
 	if (IsMouseButtonPressed(0))
 	{
 		mouse_pos = GetMousePosition();
-		if (mod == SAVER)
-			saver.CLICK(mouse_pos);
-		else
-			searcher.CLICK(mouse_pos);
+		click = 1;
 	}
-	if (mod == SAVER && saver.TEXT_Inp_Open())
-		saver.TEXT_Inp();
-	//else if (mod == SEARCHER && searcher.TEXT_Inp_Open())
-		//searcher.TEXT_Inp();
+
+	if (mod == SAVER)
+	{
+		if (click)
+			saver.CLICK(mouse_pos);
+		if (mod == SAVER && saver.TEXT_Inp_Open())
+			saver.TEXT_Inp();
+	}
+
+	else if (mod == SEARCHER)
+	{
+		if (click)
+			searcher.CLICK(mouse_pos);
+		searcher.UPDATE();
+		//if (searcher.TEXT_Inp_Open())
+		//	searcher.TEXT_Inp();
+	}
+	
 }
 
 void	Pattern_saver::DISPLAY()

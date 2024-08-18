@@ -14,6 +14,8 @@ CFLAGS      = -g -Wall -Wextra -Werror -std=c++17 -I$(INC_DIR)  # Fix the includ
 RM          = rm -f
 
 SRC         = $(SRC_DIR)main.cpp \
+			  $(SRC_DIR)functions.cpp \
+			  $(SRC_DIR)picture_preview.cpp \
 			  $(SRC_DIR)text_area.cpp \
               $(SRC_DIR)button.cpp \
               $(SRC_DIR)pattern.cpp \
