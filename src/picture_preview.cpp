@@ -1,14 +1,22 @@
 #include "../inc/pattern_saver.hpp"
 
-Picture_preview::Picture_preview(std::string n_path, Vector2 n_pos, int n_width, int n_height) : valid (1), path(n_path), pos(n_pos), width(n_width), height(n_height)
+Picture_preview::Picture_preview(std::string n_path, Vector2 n_pos, int n_width, int n_height) : valid (1), pos(n_pos), width(n_width), height(n_height)
 {
+	std::cout << n_pos.x << "x" << n_pos.y << std::endl;
 	picture = LoadImage(n_path.c_str());
 	if (picture.width <= 0 || picture.height <= 0)
 	{
 		valid = 0;
 		return;
 	}
+
 	Image temp = ImageCopy(picture);
+	if (temp.width <= 0 || temp.height <= 0)
+	{
+		valid = 0;
+		UnloadImage(picture);
+		return;
+	}
 
 	ImageResize(&temp, width, height);
 	preview = LoadTextureFromImage(temp);
@@ -22,19 +30,18 @@ Picture_preview::Picture_preview(std::string n_path, Vector2 n_pos, int n_width,
 
 Picture_preview::~Picture_preview()
 {
-	if (valid)
-	{
-		UnloadImage(picture);
-		UnloadTexture(preview);
-	}
+	std::cout << "Picture destructor called on " << std::endl;
+	//UnloadImage(picture);
+	//UnloadTexture(preview);
 }
+
 
 void	Picture_preview::DISPLAY()
 {
 	if (valid)
 	{
 
-		std::cout << pos.x << "x" << pos.y << std::endl;
+		//std::cout << pos.x << "x" << pos.y << std::endl;
 		DrawTexture(preview, pos.x, pos.y, WHITE);
 	}
 }
@@ -48,7 +55,7 @@ void	Picture_preview::RESIZE(int n_width, int n_height)
 
 	UnloadTexture(preview);
 	Image temp = ImageCopy(picture);
-	ImageResize(&temp, width, width);
+	ImageResize(&temp, width, height);
 	preview = LoadTextureFromImage(temp);
 	UnloadImage(temp);
 }
@@ -57,4 +64,5 @@ void	Picture_preview::MOOVE(int n_posx, int n_posy)
 {
 	pos.x = n_posx;
 	pos.y = n_posy;
+	//std::cout << pos.x << "x" << pos.y << std::endl;
 }

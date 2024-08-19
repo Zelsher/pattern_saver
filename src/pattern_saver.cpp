@@ -47,11 +47,10 @@ void	Pattern_saver::HANDLE_Input()
 	{
 		if (click)
 			searcher.CLICK(mouse_pos);
-		searcher.UPDATE();
+		searcher.HANDLE_Mouse_Wheel();
 		//if (searcher.TEXT_Inp_Open())
 		//	searcher.TEXT_Inp();
 	}
-	
 }
 
 void	Pattern_saver::DISPLAY()

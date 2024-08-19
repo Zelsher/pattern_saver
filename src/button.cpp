@@ -8,7 +8,7 @@ Button::Button(Vector2 n_pos, std::string n_name, int n_width, int n_height, Col
 
 Button::~Button()
 {
-	//std::cout << "destructor called on " << name << std::endl;
+	std::cout << "button destructor called on " << name << std::endl;
 } 
 
 int    Button::IS_Clicked(Vector2 click_pos)

@@ -26,6 +26,9 @@ class Pattern
 		void    CLICK(Vector2 pos);
 		void    DISPLAY();
 		void    PLAY_Wav();
+
+		void	RESIZE(int n_width, int n_height);
+		void	MOOVE(int n_posx, int n_posy);
 };
 
 #endif

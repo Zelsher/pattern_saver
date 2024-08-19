@@ -7,7 +7,6 @@ class Picture_preview
 {
 	private:
 		int			valid;
-		std::string path;
 		Vector2		pos;
 		int         width;
 		int         height;

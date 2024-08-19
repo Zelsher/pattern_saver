@@ -49,7 +49,7 @@ class Pattern_saver
 		void    HANDLE_Input();
 		void    RESIZE_Pattern_Saver();
 	
-		void    CHANGE_Mod(int n_mod) { mod = n_mod; }//penser a fermer toutes les zones de texte
+		void    CHANGE_Mod(int n_mod) { if (n_mod == SEARCHER) {searcher.UPDATE();} mod = n_mod; }//penser a fermer toutes les zones de texte
 		int     WIDTH() { return width; }
 		int     HEIGHT() { return height;}
 };

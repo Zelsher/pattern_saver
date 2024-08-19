@@ -24,6 +24,7 @@ class Searcher
 		~Searcher();
 
 		void    CLICK(Vector2 mouse_pos);
+		void	HANDLE_Mouse_Wheel();
 		void    DISPLAY();
 		void    UPDATE();
 		int     TEXT_Inp_Open();
