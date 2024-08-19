@@ -4,6 +4,7 @@ Searcher::Searcher(Pattern_saver *p_pattern) : saver(Vector2{0, BASE_HEIGHT - BA
 {
 	width = BASE_WIDTH;
 	height = BASE_HEIGHT;
+	mod = 0;
 }
 
 void    Searcher::RESIZE(int n_width, int n_height)
@@ -25,51 +26,71 @@ Searcher::~Searcher()
 
 void   Searcher::CLICK(Vector2 mouse_pos)
 {
-	
-	if (saver.IS_Clicked(mouse_pos))
+	if (saver.IS_Clicked(mouse_pos) && mod != IMG_PREVIEW)
 	{
 		std::cout << "saver clicked" << std::endl;
 		pattern_saver->CHANGE_Mod(SAVER); 
 	}
-	for (size_t i = 0; i < pattern.size(); i++)
+	if (mod != IMG_PREVIEW)
 	{
-		pattern[i].CLICK(mouse_pos);
+		int n_mod;
+		for (size_t i = 0; i < pattern.size(); i++)
+		{
+			n_mod = pattern[i].CLICK(mouse_pos);
+			if (n_mod)
+				mod = n_mod;
+			if (n_mod == IMG_PREVIEW)
+				n_pattern_img_dispayed = i;
+		}
 	}
 }
 
 void	Searcher::HANDLE_Mouse_Wheel()
 {
-	scroll -= GetMouseWheelMove();
-	if (scroll < 0)
-		scroll = 0;
-	else if (scroll >= n_folder)
-		scroll--;
-	
-	size_t i = 0;
-	while ((size_t)scroll > i)
-		i++;
-
-	while (pattern.size() > i)
+	if (IsKeyPressed(KEY_BACKSPACE))
 	{
-		pattern[i].MOOVE(0, ((float)i - scroll) * (height / 5));
-		i++;
+		mod = 0;
+		pattern[n_pattern_img_dispayed].RESIZE(width, height / 5);
+	}
+	if (mod != IMG_PREVIEW)
+	{
+		scroll -= GetMouseWheelMove();
+		if (scroll < 0)
+			scroll = 0;
+		else if (scroll >= n_folder)
+			scroll--;
+		
+		size_t i = 0;
+		while ((size_t)scroll > i)
+			i++;
+
+		while (pattern.size() > i)
+		{
+			pattern[i].MOOVE(0, ((float)i - scroll) * (height / 5));
+			i++;
+		}
 	}
 }
 
 void    Searcher::DISPLAY()
 {
-	size_t i = 0;
-	int height_used = 0;
-	pattern_height = height / 5;
-
-	saver.DISPLAY_Button();
-	while ((size_t)scroll > i)
-		i++;
-	for (; height - height / 5 > height_used && pattern.size() > i; i++)
+	if (mod != IMG_PREVIEW)
 	{
-		pattern[i].DISPLAY();
-		height_used += pattern_height;
+		size_t i = 0;
+		int height_used = 0;
+		pattern_height = height / 5;
+
+		saver.DISPLAY_Button();
+		while ((size_t)scroll > i)
+			i++;
+		for (; height - height / 5 > height_used && pattern.size() > i; i++)
+		{
+			pattern[i].DISPLAY();
+			height_used += pattern_height;
+		}
 	}
+	else
+		pattern[n_pattern_img_dispayed].DISPLAY_Full_Image(width, height);
 }
 
 namespace fs = std::filesystem;

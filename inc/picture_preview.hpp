@@ -18,10 +18,11 @@ class Picture_preview
 		~Picture_preview();
 
 		void	DISPLAY();
+		void	DISPLAY_Full_Image(int win_width, int win_height);
 		void	RESIZE(int n_width, int n_height);
 		void	MOOVE(int n_posx, int n_posy);
 
-		
+		int     IS_Clicked(Vector2 click_pos);
 };
 
 #endif

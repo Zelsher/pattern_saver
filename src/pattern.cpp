@@ -21,10 +21,13 @@ void	Pattern::PLAY_Wav()
 	UnloadSound(play_wav);
 }
 
-void	Pattern::CLICK(Vector2 pos)
+int	Pattern::CLICK(Vector2 n_pos)
 {
-	if (play.IS_Clicked(pos))
+	if (play.IS_Clicked(n_pos))
 		PLAY_Wav();
+	else if (img_preview.IS_Clicked(n_pos))
+		return (IMG_PREVIEW);
+	return (0);
 }
 
 void	Pattern::DISPLAY()

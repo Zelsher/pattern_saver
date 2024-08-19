@@ -23,9 +23,10 @@ class Pattern
 	public:
 		Pattern(Vector2 pos, std::string n_name, std::string n_path, int n_width, int n_height);
 		~Pattern();
-		void    CLICK(Vector2 pos);
+		int		CLICK(Vector2 n_pos);
 		void    DISPLAY();
 		void    PLAY_Wav();
+		void	DISPLAY_Full_Image(int win_width, int win_height) { img_preview.DISPLAY_Full_Image(win_width, win_height); };
 
 		void	RESIZE(int n_width, int n_height);
 		void	MOOVE(int n_posx, int n_posy);

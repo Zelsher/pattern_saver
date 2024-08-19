@@ -46,6 +46,13 @@ void	Picture_preview::DISPLAY()
 	}
 }
 
+void	Picture_preview::DISPLAY_Full_Image(int win_width, int win_height)
+{
+	if (width != win_width || height != win_height)
+		RESIZE(win_width, win_height);
+	DrawTexture(preview, 0, 0, WHITE);
+}
+
 void	Picture_preview::RESIZE(int n_width, int n_height)
 {
 	if (!valid)
@@ -65,4 +72,14 @@ void	Picture_preview::MOOVE(int n_posx, int n_posy)
 	pos.x = n_posx;
 	pos.y = n_posy;
 	//std::cout << pos.x << "x" << pos.y << std::endl;
+}
+
+int     Picture_preview::IS_Clicked(Vector2 click_pos)
+{
+	if (!valid)
+		return (0);
+	if (click_pos.x > pos.x && click_pos.x < pos.x + width
+		&& click_pos.y > pos.y && click_pos.y < pos.y + height)
+		return (1);
+	return (0);
 }
