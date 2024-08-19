@@ -24,9 +24,15 @@ void    Button::DISPLAY_Button()
 	DrawRectangle(pos.x, pos.y, width, height, color);
 
 	DRAW_Outline(pos, width, height);
-	
-	DrawText(name.c_str(), pos.x + width / 2 - MeasureText(name.c_str(), 
-		(width * height) * 0.001f) / 2, pos.y + height / 2 - MeasureText("a", (width * height) * 0.001f), (width * height) * 0.001f, WHITE);
+
+	int	font_name = (width * height) * 0.001f;
+	while (MeasureText(name.c_str(), font_name) > width)
+		font_name--;
+	DrawText(name.c_str(), pos.x + width / 2 - MeasureText(name.c_str(), font_name) / 2,
+		pos.y + height / 2 - MeasureText("a", font_name), font_name, WHITE);
+
+	//DrawText(name.c_str(), pos.x + width / 2 - MeasureText(name.c_str(), 
+	//	(width * height) * 0.001f) / 2, pos.y + height / 2 - MeasureText("a", (width * height) * 0.001f), (width * height) * 0.001f, WHITE);
 	//std::cout << name << " Display" << std::endl;
 }
 

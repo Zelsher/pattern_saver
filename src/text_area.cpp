@@ -108,8 +108,13 @@ void    Text_area::DISPLAY_Area()
 	DRAW_Outline(pos, width, height);
 
 	if (text.empty())
-			DrawText(name.c_str(), pos.x + width / 2 - MeasureText(name.c_str(), (width * height) * 0.001f) / 2,
-				pos.y + height / 2 - MeasureText("a", (width * height) * 0.001f), (width * height) * 0.001f, BLACK);
+	{
+		int	font_name = (width * height) * 0.001f;
+		while (MeasureText(name.c_str(), font_name) > width)
+			font_name--;
+		DrawText(name.c_str(), pos.x + width / 2 - MeasureText(name.c_str(), font_name) / 2,
+			pos.y + height / 2 - MeasureText("a", font_name), font_name, BLACK);
+	}
 	else
 	{
 		std::istringstream flux(displayed_text);
