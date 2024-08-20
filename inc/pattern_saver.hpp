@@ -33,6 +33,7 @@
 #define WAV_FOLDER "wav_folder/"
 
 #define	IMG_PREVIEW 1
+#define DESCRIPTION_PREVIEW 2
 
 class Pattern_saver 
 {

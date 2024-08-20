@@ -17,7 +17,9 @@ class Pattern
 		int     height;
 		int     char_size;
 		Button  play;
+		Button	description_button;
 		Color   color;
+		Text_area*	description;
 
 		Picture_preview	img_preview;
 	public:
@@ -26,7 +28,10 @@ class Pattern
 		int		CLICK(Vector2 n_pos);
 		void    DISPLAY();
 		void    PLAY_Wav();
-		void	DISPLAY_Full_Image(int win_width, int win_height) { img_preview.DISPLAY_Full_Image(win_width, win_height); };
+		void	DISPLAY_Full_Image(int win_width, int win_height) { img_preview.DISPLAY_Full_Image(win_width, win_height); }
+		void	DISPLAY_Description(int win_width, int win_height);
+		void	CREATE_Description(int win_width, int win_height);
+		void	DESTROY_Description();
 
 		void	RESIZE(int n_width, int n_height);
 		void	MOOVE(int n_posx, int n_posy);

@@ -19,7 +19,7 @@ class Searcher
 		int width;
 		int height;
 		int	mod;
-		int	n_pattern_img_dispayed;
+		int	n_preview_displayed;
 	public:
 		//Searcher(){}
 		Searcher(Pattern_saver *p_pattern_saver);

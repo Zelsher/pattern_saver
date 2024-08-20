@@ -104,7 +104,7 @@ int    Text_area::Input_text()
 void    Text_area::DISPLAY_Area()
 {
 	char_size = MeasureText("a", font);
-	DrawRectangle(pos.x, pos.y, width, height, WHITE);
+	DrawRectangle(pos.x, pos.y, width, height, Color{76, 76, 76, 255});
 	DRAW_Outline(pos, width, height);
 
 	if (text.empty())

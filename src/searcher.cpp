@@ -26,12 +26,12 @@ Searcher::~Searcher()
 
 void   Searcher::CLICK(Vector2 mouse_pos)
 {
-	if (saver.IS_Clicked(mouse_pos) && mod != IMG_PREVIEW)
+	if (saver.IS_Clicked(mouse_pos) && !mod)
 	{
 		std::cout << "saver clicked" << std::endl;
 		pattern_saver->CHANGE_Mod(SAVER); 
 	}
-	if (mod != IMG_PREVIEW)
+	if (mod != IMG_PREVIEW && mod != DESCRIPTION_PREVIEW)
 	{
 		int n_mod;
 		for (size_t i = 0; i < pattern.size(); i++)
@@ -39,20 +39,26 @@ void   Searcher::CLICK(Vector2 mouse_pos)
 			n_mod = pattern[i].CLICK(mouse_pos);
 			if (n_mod)
 				mod = n_mod;
-			if (n_mod == IMG_PREVIEW)
-				n_pattern_img_dispayed = i;
+			if (n_mod == IMG_PREVIEW || n_mod == DESCRIPTION_PREVIEW)
+				n_preview_displayed = i;
+			if (n_mod == DESCRIPTION_PREVIEW)
+			{
+				pattern[n_preview_displayed].CREATE_Description(width, height);
+			}
 		}
 	}
 }
 
 void	Searcher::HANDLE_Mouse_Wheel()
 {
-	if (IsKeyPressed(KEY_BACKSPACE))
+	if (IsKeyPressed(KEY_BACKSPACE) && mod)
 	{
+		if (mod == DESCRIPTION_PREVIEW)
+			pattern[n_preview_displayed].DESTROY_Description();
 		mod = 0;
-		pattern[n_pattern_img_dispayed].RESIZE(width, height / 5);
+		pattern[n_preview_displayed].RESIZE(width, height / 5);
 	}
-	if (mod != IMG_PREVIEW)
+	if (mod != IMG_PREVIEW && mod != DESCRIPTION_PREVIEW)
 	{
 		scroll -= GetMouseWheelMove();
 		if (scroll < 0)
@@ -74,7 +80,7 @@ void	Searcher::HANDLE_Mouse_Wheel()
 
 void    Searcher::DISPLAY()
 {
-	if (mod != IMG_PREVIEW)
+	if (mod != IMG_PREVIEW && mod != DESCRIPTION_PREVIEW)
 	{
 		size_t i = 0;
 		int height_used = 0;
@@ -89,8 +95,13 @@ void    Searcher::DISPLAY()
 			height_used += pattern_height;
 		}
 	}
-	else
-		pattern[n_pattern_img_dispayed].DISPLAY_Full_Image(width, height);
+	else if (mod == IMG_PREVIEW)
+		pattern[n_preview_displayed].DISPLAY_Full_Image(width, height);
+	else if (mod == DESCRIPTION_PREVIEW)
+	{
+		pattern[n_preview_displayed].DISPLAY_Description(width, height);
+		std::cout << mod << std::endl;
+	}
 }
 
 namespace fs = std::filesystem;
