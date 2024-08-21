@@ -2,7 +2,7 @@
 
 Picture_preview::Picture_preview(std::string n_path, Vector2 n_pos, int n_width, int n_height) : valid (1), pos(n_pos), width(n_width), height(n_height)
 {
-	std::cout << n_pos.x << "x" << n_pos.y << std::endl;
+	//std::cout << n_pos.x << "x" << n_pos.y << std::endl;
 	picture = LoadImage(n_path.c_str());
 	if (picture.width <= 0 || picture.height <= 0)
 	{

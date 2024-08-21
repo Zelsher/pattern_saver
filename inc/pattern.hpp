@@ -31,7 +31,7 @@ class Pattern
 		void	DISPLAY_Full_Image(int win_width, int win_height) { img_preview.DISPLAY_Full_Image(win_width, win_height); }
 		void	DISPLAY_Description(int win_width, int win_height);
 		void	CREATE_Description(int win_width, int win_height);
-		void	DESTROY_Description();
+		void	DESTROY_Description(int save);
 
 		void	RESIZE(int n_width, int n_height);
 		void	MOOVE(int n_posx, int n_posy);

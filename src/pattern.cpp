@@ -28,26 +28,47 @@ int	Pattern::CLICK(Vector2 n_pos)
 	else if (img_preview.IS_Clicked(n_pos))
 		return (IMG_PREVIEW);
 	else if (description_button.IS_Clicked(n_pos))
-	{
-		std::cout << "oui" << std::endl;
 		return (DESCRIPTION_PREVIEW);
-	}
 	return (0); 
 }
 
 void	Pattern::CREATE_Description(int win_width, int win_height)
 {
-	description = new Text_area(Vector2{0, 0}, "Description", win_width, win_height, 0, WHITE);
+	description = new Text_area(Vector2{0, 0}, " ", win_width, win_height, 0, WHITE);
+
+	std::ifstream description_file(path + "/" + name + ".description");
+
+    if (description_file.is_open()) 
+	{
+        std::string description_text;
+        std::string line;
+        while (std::getline(description_file, line))
+            description_text += line + "\n";
+		std::cout << description_text << std::endl;
+		description_file.close();
+		description->FILL_Text(description_text);
+	}
+	
 }
 
-void	Pattern::DESTROY_Description()
+void	Pattern::DESTROY_Description(int save)
 {
+	if (save)
+	{
+		std::ofstream description_file(path + "/" + name + ".description");
+		if (description_file.is_open())
+		{
+			description_file << description->GET_Text();
+			description_file.close();
+		}
+	}
 	delete description;
 	description = NULL;
 }
 
 void	Pattern::DISPLAY_Description(int win_width, int win_height)
 {
+	description->INPUT_Text();
 	if (win_width != description->WIDTH() && win_height != description->HEIGHT())
 		description->RESIZE(win_width, win_height);
 	description->DISPLAY_Area();

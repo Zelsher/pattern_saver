@@ -67,13 +67,13 @@ void   Saver::SAVE_Pattern()
 	source.close();
 	dest.close();
 
-	std::ofstream name(folder + pattern_name);
-	if (!name) 
+	std::ofstream description_file(folder + pattern_name + ".description");
+	if (!description_file) 
 	{
 		std::cerr << "Erreur: Impossible de créer le fichier name" << std::endl;
 		return ;
 	}
-	name << description;
+	description_file << description;
 	//takeScreenshot(pattern_name);
 }
 
@@ -114,5 +114,5 @@ int     Saver::TEXT_Inp_Open()
 
 void    Saver::TEXT_Inp()
 {
-	text_area[area_click - 1].Input_text();
+	text_area[area_click - 1].INPUT_Text();
 }

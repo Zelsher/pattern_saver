@@ -21,6 +21,11 @@ Text_area::~Text_area()
 	std::cout << "destructor text_area called on " << name << std::endl;
 }
 
+void	Text_area::FILL_Text(std::string new_text)
+{
+	text = new_text;
+}
+
 int    Text_area::IS_Clicked(Vector2 click_pos)
 {
 	if (click_pos.x > pos.x && click_pos.x < pos.x + width
@@ -79,8 +84,9 @@ void    Text_area::CREATE_Displayed_Text(int key)
 	}
 }
 
-int    Text_area::Input_text()
+int    Text_area::INPUT_Text()
 {
+	//std::cout << text << std::endl;
 	//MeasureText("a", (width * height) * 0.001f) > height
 	SCROLL((int)GetMouseWheelMove());
 	int key = GetKeyPressed();

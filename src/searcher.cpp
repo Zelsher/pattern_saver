@@ -54,22 +54,26 @@ void	Searcher::HANDLE_Mouse_Wheel()
 	if (IsKeyPressed(KEY_BACKSPACE) && mod)
 	{
 		if (mod == DESCRIPTION_PREVIEW)
-			pattern[n_preview_displayed].DESTROY_Description();
+			pattern[n_preview_displayed].DESTROY_Description(0);
 		mod = 0;
 		pattern[n_preview_displayed].RESIZE(width, height / 5);
 	}
-	if (mod != IMG_PREVIEW && mod != DESCRIPTION_PREVIEW)
+	else if (IsKeyPressed(KEY_ENTER) && mod == DESCRIPTION_PREVIEW)
+	{
+		pattern[n_preview_displayed].DESTROY_Description(1);
+		pattern[n_preview_displayed].RESIZE(width, height / 5);
+		mod = 0;
+	}
+	else if (mod != IMG_PREVIEW && mod != DESCRIPTION_PREVIEW)
 	{
 		scroll -= GetMouseWheelMove();
 		if (scroll < 0)
 			scroll = 0;
-		else if (scroll >= n_folder)
+		else if (scroll > n_folder)
 			scroll--;
-		
 		size_t i = 0;
 		while ((size_t)scroll > i)
 			i++;
-
 		while (pattern.size() > i)
 		{
 			pattern[i].MOOVE(0, ((float)i - scroll) * (height / 5));
@@ -98,10 +102,7 @@ void    Searcher::DISPLAY()
 	else if (mod == IMG_PREVIEW)
 		pattern[n_preview_displayed].DISPLAY_Full_Image(width, height);
 	else if (mod == DESCRIPTION_PREVIEW)
-	{
 		pattern[n_preview_displayed].DISPLAY_Description(width, height);
-		std::cout << mod << std::endl;
-	}
 }
 
 namespace fs = std::filesystem;

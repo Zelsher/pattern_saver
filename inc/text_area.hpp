@@ -32,7 +32,7 @@ class Text_area
 
 		int     IS_Clicked(Vector2 click_pos);
 		void    DISPLAY_Area();
-		int     Input_text();
+		int     INPUT_Text();
 		int     CLICK_Outside_Text_Area();
 
 		void    RESET() { text.clear(); displayed_text.clear(); scroll = 0; n_line_displayed = 0; n_char = 1; }
@@ -49,6 +49,7 @@ class Text_area
 
 		void        Print_width() { std::cout << width << std::endl << height << std::endl; }
 		std::string GET_Text() { std::cout << text << std::endl; return (text); }
+		void		FILL_Text(std::string new_text);
 		void        CREATE_Displayed_Text(int key);
 		void        SCROLL(int i) { scroll += -i; if (scroll < 0)scroll++;}
 };
